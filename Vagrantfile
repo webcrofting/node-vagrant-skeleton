@@ -1,0 +1,53 @@
+######################################################################
+#                                                                    #
+# Vagrant configuration file                                         #
+# author: Paweł Chalacis <pchalacis@gmail.com>                       #
+# this box contains:                                                 #
+# - nodejs                                                           #
+# - nginx                                                            #
+# - mongodb                                                          #
+# - redis                                                            #
+######################################################################
+
+Vagrant::Config.run do |config|
+
+    config.vm.customize [
+        'modifyvm', :id,
+        '--memory', 1024,
+        '--cpus',   1
+    ]
+
+    config.vm.boot_mode = 'headless'
+    config.vm.host_name = "nodeserver"
+
+    config.vm.box = 'Ubuntu-12.04'
+
+    config.vm.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root", "1"]
+
+    config.vm.forward_port 22, 2200
+    config.vm.forward_port 80, 8000
+    config.vm.forward_port 8080, 8080
+
+    config.ssh.max_tries     = 50
+    config.ssh.timeout       = 300
+    config.ssh.forward_agent = true
+
+    # Enable and configure the chef solo provisioner
+
+    config.vm.provision :chef_solo do |chef|
+
+        chef.cookbooks_path = 'build/cookbooks'
+
+        chef.add_recipe('build-essential')
+        chef.add_recipe('apt-get')
+		chef.add_recipe('vim')
+
+        chef.add_recipe('nodejs')
+        chef.add_recipe('nginx')
+
+        chef.log_level = :debug
+
+    end
+
+
+end
