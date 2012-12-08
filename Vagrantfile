@@ -25,8 +25,8 @@ Vagrant::Config.run do |config|
     config.vm.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root", "1"]
 
     config.vm.forward_port 22, 2200
-    config.vm.forward_port 80, 8000
-    config.vm.forward_port 8080, 8080
+    config.vm.forward_port 80, 9000
+    config.vm.forward_port 8001, 9001
 
     config.ssh.max_tries     = 50
     config.ssh.timeout       = 300
@@ -45,7 +45,7 @@ Vagrant::Config.run do |config|
         chef.add_recipe('nodejs')
         chef.add_recipe('nginx')
 
-        chef.log_level = :debug
+        chef.log_level = :info
 
     end
 
