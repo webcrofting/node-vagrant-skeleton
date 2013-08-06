@@ -35,9 +35,9 @@ You should consider reading http://vagrantup.com/v1/docs/getting-started/index.h
 
 ### Booting up
 This package uses Ubuntu box (you should be able to use Debian box with no changes to build recipes).
-To download Ubuntu 12.04 box, type:
+To download Ubuntu 13.04 box, type:
 ```sh
-vagrant box add Ubuntu-12.04 https://dl.dropbox.com/u/1543052/Boxes/UbuntuServer12.04amd64.box
+vagrant box add Ubuntu-13.04 https://dl.dropbox.com/u/1543052/Boxes/UbuntuServer12.04amd64.box
 ```
 When the download is completed, type:
 ```sh
